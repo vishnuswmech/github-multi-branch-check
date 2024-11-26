@@ -1,4 +1,4 @@
-def greet(){
+def call(){
 
   sh '''
   echo "hello world"
