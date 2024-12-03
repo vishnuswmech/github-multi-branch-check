@@ -1,6 +1,6 @@
 def call(){
 
   sh '''
-  echo "hello world"
+ mvn clean install
   '''
 }
