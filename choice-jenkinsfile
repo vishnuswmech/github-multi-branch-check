@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    parameters {
+        // Choice parameter with three predefined options
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['DEV', 'QA', 'PROD'],
+            description: 'Select the target environment for deployment.'
+        )
+    }
+
+    stages {
+        stage('Setup') {
+            steps {
+                echo "You selected the environment: ${params.ENVIRONMENT}"
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    if (params.ENVIRONMENT == 'DEV') {
+                        echo 'Performing build for Development environment...'
+                    } else if (params.ENVIRONMENT == 'QA') {
+                        echo 'Performing build for QA environment...'
+                    } else if (params.ENVIRONMENT == 'PROD') {
+                        echo 'Performing build for Production environment...'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying application to the ${params.ENVIRONMENT} environment..."
+                // Simulated deployment command
+                sh "echo Deploying to ${params.ENVIRONMENT}"
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline execution completed."
+        }
+    }
+}
